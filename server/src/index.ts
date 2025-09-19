@@ -1,14 +1,17 @@
 import express from "express";
+import dotenv from "dotenv";
 
+import flightsRoutes from "./routes/flights.route.ts";
+
+dotenv.config();
 const app = express();
 
-app.use(express.json());
-const PORT = 8000;
+const PORT = process.env.PORT;
 
-app.get("/", (req, res) => {
-  return res.json("Teste");
-});
+app.use(express.json());
+
+app.use(flightsRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Running on port ${PORT}`)
-})
+  console.log(`Running on port ${PORT}`);
+});
