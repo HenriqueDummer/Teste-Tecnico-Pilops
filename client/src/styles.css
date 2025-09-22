@@ -1,1 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Sora:wght@100..800&display=swap");
+
 @import "tailwindcss";
+
+@utility scrollbar-hide {
+  /* Firefox & IE */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  /* Webkit (Chrome, Safari) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@theme {
+  --color-dark-bg: #1a1a1a;
+  --color-dark-bg-secondary: #212121;
+  --color-accent-yellow: #ffbf00;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e0e0e0;
+  --color-text-accent-green: #00ff88;
+  --color-text-accent-red: #ff0000;
+
+  --font-sans: "Manrope", sans-serif;
+  --font-sora: "Sora", sans-serif;
+}

@@ -14,6 +14,7 @@ export const getFlights = (req: Request, res: Response): void => {
       route: flight.flightData.route,
       balance: flight.flightData.balance,
       date: flight.flightData.date,
+      airline: flight.aircraft.airline,
     }));
 
     res.status(200).json(flights);

@@ -17,13 +17,16 @@ export type FlightDetails = {
   missionBonus: number;
 };
 
-export type Flights = {
+export type BasicFlightDetails = {
   id: string;
   aircraft: string;
   date: Date;
   balance: number;
+  airline: string;
   route: {
     from: string;
     to: string;
   };
-}[];
+};
+
+export type Flights = BasicFlightDetails[];
