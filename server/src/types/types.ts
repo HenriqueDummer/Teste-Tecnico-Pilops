@@ -5,7 +5,7 @@ export type Flight = {
     registration: string;
     airline: string;
   };
-  flighData: {
+  flightData: {
     date: Date;
     balance: number;
     route: {
