@@ -8,13 +8,13 @@ export type FlightDetails = {
   flightData: {
     date: Date;
     balance: number;
+    missionBonus: number;
+    xp: number;
     route: {
       from: string;
       to: string;
     };
   };
-  xp: number;
-  missionBonus: number;
 };
 
 export type BasicFlightDetails = {

@@ -1,6 +1,5 @@
+import { formatToDecimal } from "./formatToDecimal";
+
 export const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(Math.abs(value));
+  return `P$ ${formatToDecimal(value)}`;
 };

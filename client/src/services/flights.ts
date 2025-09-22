@@ -2,7 +2,6 @@ import axios from "axios";
 import type { Flights } from "../types/types";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
-console.log(import.meta.env.VITE_BASE_URL)
 
 export const getFlights = async (): Promise<Flights> => {
   try {
