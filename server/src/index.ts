@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 
 import flightsRoutes from "./routes/flights.route.ts";
+import { readDbData } from "./utils/readDbData.ts";
 
 dotenv.config();
 const app = express();
