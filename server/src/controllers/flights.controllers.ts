@@ -4,7 +4,9 @@ import type { DB, Flight } from "../types/types.ts";
 
 export const getFlights = (req: Request, res: Response): void => {
   try {
-    const db = readDbData<DB>();
+    let db = readDbData<DB>();
+
+    db = { flights: db.flights.slice(0, 10) };
 
     const flights = db.flights.map((flight) => ({
       id: flight.id,
@@ -15,7 +17,6 @@ export const getFlights = (req: Request, res: Response): void => {
     }));
 
     res.status(200).json(flights);
-
   } catch (error) {
     console.log(error);
     throw new Error("Failed to get flights");
@@ -33,8 +34,7 @@ export const getFlightDetails = (req: Request, res: Response): void => {
       res.status(404).json({ message: "Flight not found" });
     }
 
-    res.json(flight)
-
+    res.json(flight);
   } catch (error) {
     console.log(error);
     throw new Error("Failed to get flight");
