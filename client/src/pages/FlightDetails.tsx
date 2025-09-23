@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router";
-import PageLayout from "../components/PageLayout";
 import { useGetFlightDetails } from "../hooks/useGetFlightDetails";
 import ArrowIcon from "/ArrowIcon.svg";
 import FlightCard from "../components/FlightCard";
@@ -40,21 +39,19 @@ const FlightDetails = () => {
   console.log(data);
 
   return (
-    <PageLayout>
-      <div className="w-full max-w-[80rem] mt-10">
-        <div className="flex gap-3 text-2xl">
-          <button onClick={() => navigate(-1)} className="cursor-pointer">
-            <img src={ArrowIcon} alt="Arrow icon" />
-          </button>
-          <h2 className="font-sora font-bold">Detalhes do voo</h2>
-        </div>
-
-        <div className="mt-10 flex flex-col gap-6">
-          <FlightDetailsCard {...flightDetailsCardData} />
-          <FlightCard hideBalance {...flightCardData} />
-        </div>
+    <>
+      <div className="flex gap-3 text-2xl">
+        <button onClick={() => navigate(-1)} className="cursor-pointer">
+          <img src={ArrowIcon} alt="Arrow icon" />
+        </button>
+        <h2 className="font-sora font-bold">Detalhes do voo</h2>
       </div>
-    </PageLayout>
+
+      <div className="mt-10 flex flex-col gap-6">
+        <FlightDetailsCard {...flightDetailsCardData} />
+        <FlightCard hideBalance {...flightCardData} />
+      </div>
+    </>
   );
 };
 

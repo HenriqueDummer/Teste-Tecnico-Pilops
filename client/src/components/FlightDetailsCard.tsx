@@ -11,14 +11,14 @@ type RenderItemProps = {
   icon: React.ReactNode;
   title: string;
   value: string;
-  ganhosTotais?: boolean;
+  highlight?: boolean;
 };
 
-const RenderItem = ({ icon, title, value, ganhosTotais }: RenderItemProps) => {
+const RenderItem = ({ icon, title, value, highlight }: RenderItemProps) => {
   return (
     <li
       className={`flex ${
-        !ganhosTotais ? "justify-center" : "justify-start"
+        !highlight ? "justify-center" : "justify-start"
       } item-center mt-4 flex-1`}
     >
       <div className="flex items-center gap-3">
@@ -27,7 +27,7 @@ const RenderItem = ({ icon, title, value, ganhosTotais }: RenderItemProps) => {
           <p className="text-sm font-thin text-text-secondary">{title}</p>
           <p
             className={`font-bold font-sora ${
-              ganhosTotais ? "text-text-accent-green" : ""
+              highlight ? "text-text-accent-green" : ""
             } text-3xl`}
           >
             {value}
@@ -60,7 +60,7 @@ const FlightDetailsCard = ({
           icon={<img src={EarnsIcon} alt="trophy" />}
           title="Ganhos totais"
           value={formatToDecimal(ganhosTotais)}
-          ganhosTotais
+          highlight
         />
 
         <RenderItem
