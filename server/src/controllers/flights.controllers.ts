@@ -4,11 +4,16 @@ import type { DB, Flight } from "../types/types.ts";
 
 export const getFlights = (req: Request, res: Response): void => {
   try {
-    let db = readDbData<DB>();
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
 
-    db = { flights: db.flights.slice(0, 10) };
+    const skip = (page - 1) * limit;
 
-    const flights = db.flights.map((flight) => ({
+    const db = readDbData<DB>();
+
+    const paginatedFlights = { flights: db.flights.slice(skip, skip + limit) };
+
+    const flights = paginatedFlights.flights.map((flight) => ({
       id: flight.id,
       aircraft: flight.aircraft.name,
       route: flight.flightData.route,
@@ -17,7 +22,14 @@ export const getFlights = (req: Request, res: Response): void => {
       airline: flight.aircraft.airline,
     }));
 
-    res.status(200).json(flights);
+    const total = db.flights.length;
+    const hasMore = page * limit < total;
+
+    res.status(200).json({
+      flights: flights,
+      hasMore,
+      nextPage: hasMore ? page + 1 : null,
+    });
   } catch (error) {
     console.log(error);
     throw new Error("Failed to get flights");

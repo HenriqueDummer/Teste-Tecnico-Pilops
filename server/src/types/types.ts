@@ -12,10 +12,12 @@ export type Flight = {
       from: string;
       to: string;
     };
+    xp: number;
+    missionBonus: number;
   };
-  xp: number;
-  missionBonus: number;
 };
+
+
 
 export type DB = {
   flights: Flight[];

@@ -30,3 +30,9 @@ export type BasicFlightDetails = {
 };
 
 export type Flights = BasicFlightDetails[];
+
+export type PaginatedFlights = {
+  flights: Flights;
+  hasMore: boolean;
+  nextPage?: number;
+};

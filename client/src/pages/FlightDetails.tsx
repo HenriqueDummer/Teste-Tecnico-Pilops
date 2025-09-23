@@ -9,13 +9,13 @@ const FlightDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  if (!id || id === undefined) {
+  if (!id) {
     navigate("/");
   }
 
-  const { data } = useGetFlightDetails(id!);
+  const { data, isError, isLoading } = useGetFlightDetails(id!);
 
-  if (!data) {
+  if (!data || isError) {
     return <h1>Algo deu errado, tente novamente mais tarde</h1>;
   }
 
@@ -36,8 +36,6 @@ const FlightDetails = () => {
     xp: data.flightData.xp,
   };
 
-  console.log(data);
-
   return (
     <>
       <div className="flex gap-3 text-2xl">
@@ -48,8 +46,13 @@ const FlightDetails = () => {
       </div>
 
       <div className="mt-10 flex flex-col gap-6">
-        <FlightDetailsCard {...flightDetailsCardData} />
-        <FlightCard hideBalance {...flightCardData} />
+        {isLoading && <h3 className="text-xl text-center">Loading...</h3>}
+        {data && (
+          <>
+            <FlightDetailsCard {...flightDetailsCardData} />
+            <FlightCard hideBalance {...flightCardData} />
+          </>
+        )}
       </div>
     </>
   );

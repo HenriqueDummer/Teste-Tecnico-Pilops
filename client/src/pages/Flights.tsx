@@ -1,14 +1,37 @@
-import { useGetFlights } from "../hooks/useGetFlights";
+import { useInfiniteFlights } from "../hooks/useInfiniteFlights";
 
 import FlightCard from "../components/FlightCard";
 import { NavLink } from "react-router";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
 
 const Flights = () => {
-  const { data, isPending, isError } = useGetFlights();
+  const { ref, inView } = useInView();
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isError,
+  } = useInfiniteFlights();
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      const timeout = setTimeout(() => {
+        fetchNextPage();
+      }, 200);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
 
   if (!data || isError) {
     return <h1>Algo deu errado, tente novamente mais tarde!</h1>;
   }
+
+  const flights = data!.pages.flatMap((page) => page.flights);
 
   return (
     <>
@@ -17,13 +40,21 @@ const Flights = () => {
         Visualize seu histórico completo de voos realizados
       </h3>
       <div className="my-10 flex flex-col gap-4">
-        {isPending && <h4 className="text-xl text-center">Loading...</h4>}
-        {data &&
-          data.map((flight) => (
-            <NavLink to={`/flight/${flight.id}`}>
+        {isLoading && <h4 className="text-xl text-center">Loading...</h4>}
+        {flights &&
+          flights.map((flight) => (
+            <NavLink key={flight.id} to={`/flight/${flight.id}`}>
               <FlightCard key={flight.id} {...flight} />
             </NavLink>
           ))}
+
+        <div ref={ref} className="mt-4">
+          {isFetchingNextPage && (
+            <div className="flex justify-center">
+              <p className="text-lg text-slate-200">Loading more flights...</p>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

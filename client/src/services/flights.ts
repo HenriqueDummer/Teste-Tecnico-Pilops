@@ -1,13 +1,16 @@
 import axios from "axios";
-import type { Flights } from "../types/types";
+import type { PaginatedFlights } from "../types/types";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
-export const getFlights = async (): Promise<Flights> => {
+export const getFlights = async (page: number): Promise<PaginatedFlights> => {
   try {
-    const response = await axios.get("/flights");
+    const response = await axios.get("/flights", {
+      params: { page, limit: 10 },
+    });
     const flights = response.data;
 
+    console.log(flights)
     return flights;
   } catch (err) {
     console.log(err);
