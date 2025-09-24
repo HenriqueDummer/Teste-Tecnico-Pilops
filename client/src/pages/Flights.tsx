@@ -31,7 +31,7 @@ const Flights = () => {
   }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
 
   if (!data || isError) {
-    return <h1>Algo deu errado, tente novamente mais tarde!</h1>;
+    return <h1 className="text-center">Algo deu errado, tente novamente mais tarde!</h1>;
   }
 
   const flights = data!.pages.map((page) => page.flights).flat();
@@ -52,7 +52,7 @@ const Flights = () => {
         <div className="flex">
           <SelectPlane plane={plane} setPlane={setPlane} />
         </div>
-        {isLoading && <h4 className="text-xl text-center">Loading...</h4>}
+        {isLoading && <h4 className="text-xl text-center">Carregando...</h4>}
         {flights &&
           flights.map((flight) => (
             <NavLink key={flight.id} to={`/flight/${flight.id}`}>

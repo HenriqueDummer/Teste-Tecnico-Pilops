@@ -30,9 +30,7 @@ const FlightDetails = () => {
 
   const flightDetailsCardData = {
     bonus: data.flightData.missionBonus * 100,
-    totalBalance:
-      data.flightData.balance +
-      data.flightData.missionBonus * data.flightData.balance,
+    totalBalance: data.flightData.balance,
     xp: data.flightData.xp,
   };
 
@@ -46,7 +44,7 @@ const FlightDetails = () => {
       </div>
 
       <div className="mt-10 flex flex-col gap-6">
-        {isLoading && <h3 className="text-xl text-center">Loading...</h3>}
+        {isLoading && <h3 className="text-xl text-center">Carregando...</h3>}
         {data && (
           <>
             <FlightDetailsCard {...flightDetailsCardData} />
