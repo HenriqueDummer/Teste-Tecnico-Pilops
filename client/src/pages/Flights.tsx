@@ -3,11 +3,13 @@ import { useInfiniteFlights } from "../hooks/useInfiniteFlights";
 import FlightCard from "../components/FlightCard";
 import { NavLink } from "react-router";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import TotalBalance from "../components/TotalBalance";
+import SelectPlane from "../components/SelectPlane";
 
 const Flights = () => {
   const { ref, inView } = useInView();
+  const [plane, setPlane] = useState<string | undefined>(undefined);
 
   const {
     data,
@@ -16,7 +18,7 @@ const Flights = () => {
     isFetchingNextPage,
     isLoading,
     isError,
-  } = useInfiniteFlights();
+  } = useInfiniteFlights(plane);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -47,6 +49,9 @@ const Flights = () => {
       </div>
 
       <div className="my-10 flex flex-col gap-4">
+        <div className="flex">
+          <SelectPlane plane={plane} setPlane={setPlane} />
+        </div>
         {isLoading && <h4 className="text-xl text-center">Loading...</h4>}
         {flights &&
           flights.map((flight) => (

@@ -6,10 +6,16 @@ export const getFlights = (req: Request, res: Response): void => {
   try {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
-
     const skip = (page - 1) * limit;
+    const plane = req.query.plane;
 
-    const db = readDbData<DB>();
+    let db = readDbData<DB>();
+
+    if (plane) {
+      db = {
+        flights: db.flights.filter((flight) => flight.aircraft.name === plane),
+      };
+    }
 
     const paginatedFlights = { flights: db.flights.slice(skip, skip + limit) };
 
@@ -66,6 +72,28 @@ export const getTotalBalance = (req: Request, res: Response): void => {
     });
 
     res.status(200).json({ totalBalance });
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to get total balance");
+  }
+};
+
+export const getUsedPlanes = (req: Request, res: Response) => {
+  try {
+    const db = readDbData<DB>();
+
+    let planes: string[] = [];
+
+    db.flights.map((flight) => {
+      const targetPlane = flight.aircraft.name;
+      const isPlaneRegistered = planes.find((plane) => plane === targetPlane);
+
+      if (!isPlaneRegistered) {
+        planes.push(targetPlane);
+      }
+    });
+
+    res.status(200).json({ planes });
   } catch (error) {
     console.log(error);
     throw new Error("Failed to get total balance");

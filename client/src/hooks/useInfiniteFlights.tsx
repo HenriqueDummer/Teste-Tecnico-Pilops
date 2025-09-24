@@ -1,10 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getFlights } from "../services/flights";
 
-export const useInfiniteFlights = () => {
+export const useInfiniteFlights = (plane: string | undefined) => {
   return useInfiniteQuery({
-    queryKey: ["flights"],
-    queryFn: ({ pageParam = 1 }) => getFlights(pageParam),
+    queryKey: ["flights", plane],
+    queryFn: ({ pageParam = 1 }) => getFlights(pageParam, plane),
     initialPageParam: 1,
     getNextPageParam: (lastPage) =>
       lastPage.hasMore ? lastPage.nextPage : undefined,
