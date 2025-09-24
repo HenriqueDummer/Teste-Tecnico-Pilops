@@ -9,7 +9,9 @@ const TotalBalance = () => {
   if (!data) {
     return (
       <Container>
-        <h4 className="font-semibold text-text-primary">Não foi possível calcular o saldo acumulado</h4>
+        <h4 className="font-semibold text-text-primary">
+          Não foi possível calcular o saldo acumulado
+        </h4>
       </Container>
     );
   }
@@ -20,31 +22,35 @@ const TotalBalance = () => {
   const formattedBalance = formatCurrency(totalBalance);
 
   return (
-    <Container>
-      {isLoading && <h4 className="font-semibold text-text-secondary">
-            Calculando saldo acumulado...
-          </h4>}
-      {data && <div className="flex items-center gap-4">
-        
-        <div className="flex flex-col items-end">
-          <h4 className="font-semibold text-text-primary">
-            Saldo total acumulado
-          </h4>
-          <p
-            className={`${
-              isBalancePositive
-                ? "text-text-accent-green"
-                : "text-text-accent-red"
-            }
+    <>
+      {isLoading && (
+        <h4 className="font-semibold text-text-secondary">
+          Calculando saldo acumulado...
+        </h4>
+      )}
+
+      {data && (
+        <div className="flex items-center gap-4">
+          <div className="flex flex-col items-end">
+            <h4 className="font-semibold text-text-primary">
+              Saldo total acumulado
+            </h4>
+            <p
+              className={`${
+                isBalancePositive
+                  ? "text-text-accent-green"
+                  : "text-text-accent-red"
+              }
             } text-2xl font-semibold`}
-          >
-            {!isBalancePositive && "- "}
-            {formattedBalance}
-          </p>
+            >
+              {!isBalancePositive && "- "}
+              {formattedBalance}
+            </p>
+          </div>
+          <img src={EarnsIcon} alt="Balance icon" />
         </div>
-        <img src={EarnsIcon} alt="Balance icon" />
-      </div>}
-    </Container>
+      )}
+    </>
   );
 };
 
