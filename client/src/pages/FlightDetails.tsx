@@ -30,7 +30,7 @@ const FlightDetails = () => {
 
   const flightDetailsCardData = {
     bonus: data.flightData.missionBonus * 100,
-    ganhosTotais:
+    totalBalance:
       data.flightData.balance +
       data.flightData.missionBonus * data.flightData.balance,
     xp: data.flightData.xp,

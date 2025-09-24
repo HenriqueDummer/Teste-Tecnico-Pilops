@@ -10,28 +10,31 @@ import { formatToDecimal } from "../utils/formatToDecimal";
 type RenderItemProps = {
   icon: React.ReactNode;
   title: string;
-  value: string;
-  highlight?: boolean;
+  value?: string;
+  customValue?: React.ReactNode;
+  justifyStart?: boolean;
 };
 
-const RenderItem = ({ icon, title, value, highlight }: RenderItemProps) => {
+const RenderItem = ({
+  icon,
+  title,
+  value,
+  customValue,
+  justifyStart,
+}: RenderItemProps) => {
   return (
     <li
       className={`flex ${
-        !highlight ? "justify-center" : "justify-start"
+        justifyStart ? "justify-start" : "justify-center"
       } item-center mt-4 flex-1`}
     >
       <div className="flex items-center gap-3">
         {icon}
         <div>
           <p className="text-sm font-thin text-text-secondary">{title}</p>
-          <p
-            className={`font-bold font-sora ${
-              highlight ? "text-text-accent-green" : ""
-            } text-3xl`}
-          >
-            {value}
-          </p>
+          {customValue ?? (
+            <p className="font-bold font-sora text-3xl">{value}</p>
+          )}
         </div>
       </div>
     </li>
@@ -41,14 +44,16 @@ const RenderItem = ({ icon, title, value, highlight }: RenderItemProps) => {
 type FlightDetailsCardProps = {
   xp: number;
   bonus: number;
-  ganhosTotais: number;
+  totalBalance: number;
 };
 
 const FlightDetailsCard = ({
   xp,
   bonus,
-  ganhosTotais,
+  totalBalance,
 }: FlightDetailsCardProps) => {
+  const isBalancePositive = totalBalance > 0;
+
   return (
     <Container>
       <div className="flex items-center gap-2">
@@ -59,8 +64,20 @@ const FlightDetailsCard = ({
         <RenderItem
           icon={<img src={EarnsIcon} alt="trophy" />}
           title="Ganhos totais"
-          value={formatToDecimal(ganhosTotais)}
-          highlight
+          justifyStart
+          customValue={
+            <p
+              className={`${
+                isBalancePositive
+                  ? "text-text-accent-green"
+                  : "text-text-accent-red"
+              }
+            } text-3xl font-bold font-sora`}
+            >
+              {!isBalancePositive && "- "}
+              {formatToDecimal(totalBalance)}
+            </p>
+          }
         />
 
         <RenderItem
