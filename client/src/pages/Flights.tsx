@@ -63,7 +63,7 @@ const Flights = () => {
         <div ref={ref} className="mt-4">
           {isFetchingNextPage && (
             <div className="flex justify-center">
-              <p className="text-lg text-slate-200">Loading more flights...</p>
+              <p className="text-lg text-slate-200">Carregando mais voos...</p>
             </div>
           )}
         </div>

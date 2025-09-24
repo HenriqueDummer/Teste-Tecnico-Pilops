@@ -6,12 +6,26 @@ import { formatCurrency } from "../utils/formatCurrency";
 import { formatDate } from "../utils/formatDate";
 import Container from "./Container";
 
-type FlightProps = BasicFlightDetails & {
-  hideBalance?: boolean;
+type RenderItemProps = {
+  title: string;
+  value?: string;
+  customValue?: React.ReactNode;
 };
 
-const headingStyle = "text-xs font-light text-text-secondary";
-const itemStyle = "flex flex-col items-center flex-1";
+const RenderItem = ({ title, value, customValue }: RenderItemProps) => {
+  return (
+    <li className="flex flex-col items-center flex-1">
+      <p className="text-xs font-light text-text-secondary">{title}</p>
+      {customValue ?? (
+        <p className="text-text-primary font-semibold mt-1">{value}</p>
+      )}
+    </li>
+  );
+};
+
+type FlightCardProps = BasicFlightDetails & {
+  hideBalance?: boolean;
+};
 
 const FlightCard = ({
   id,
@@ -21,7 +35,7 @@ const FlightCard = ({
   route,
   airline,
   hideBalance = false,
-}: FlightProps) => {
+}: FlightCardProps) => {
   const isBalancePositive = balance > 0;
   const formattedBalance = formatCurrency(balance);
 
@@ -35,44 +49,40 @@ const FlightCard = ({
           <p className="font-light text-text-secondary text-sm">{airline}</p>
         </li>
 
-        <li className={itemStyle}>
-          <p className={headingStyle}>Trajeto</p>
-          <div className="flex flex-col">
-            <img src={RouteTrace} alt="" />
-            <div className="flex w-full justify-between font-light text-sm">
-              <p>{route.from}</p>
-              <p>{route.to}</p>
+        <RenderItem
+          title="Trajeto"
+          customValue={
+            <div className="flex flex-col">
+              <img src={RouteTrace} alt="" />
+              <div className="flex w-full justify-between font-light text-sm">
+                <p>{route.from}</p>
+                <p>{route.to}</p>
+              </div>
             </div>
-          </div>
-        </li>
+          }
+        />
 
-        <li className={itemStyle}>
-          <p className={headingStyle}>Matrícula</p>
-          <p className="text-text-primary font-semibold mt-1">{id}</p>
-        </li>
+        <RenderItem title="Matrícula" value={id} />
 
-        <li className={itemStyle}>
-          <p className={headingStyle}>Data</p>
-          <p className="text-text-primary font-semibold mt-1">
-            {formattedDate}
-          </p>
-        </li>
+        <RenderItem title="Data" value={formattedDate} />
 
         {!hideBalance && (
-          <li className={itemStyle}>
-            <p className={headingStyle}>Saldo</p>
-            <p
-              className={`${
-                isBalancePositive
-                  ? "text-text-accent-green"
-                  : "text-text-accent-red"
-              }
+          <RenderItem
+            title="Saldo"
+            customValue={
+              <p
+                className={`${
+                  isBalancePositive
+                    ? "text-text-accent-green"
+                    : "text-text-accent-red"
+                }
             } font-semibold mt-1`}
-            >
-              {!isBalancePositive && "- "}
-              {formattedBalance}
-            </p>
-          </li>
+              >
+                {!isBalancePositive && "- "}
+                {formattedBalance}
+              </p>
+            }
+          />
         )}
       </ul>
     </Container>
