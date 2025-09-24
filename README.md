@@ -16,6 +16,15 @@ Este repositório contém a implementação do teste técnico para a **Pilops**.
 
 ---
 
+## 🌟 Funcionalidades adicionais implementadas
+
+- Paginação no backend
+- Scroll infinito com react query
+- Saldo total acumulado
+
+---
+
+
 ## 🚀 Como executar o projeto
 
 ### Pré-requisitos

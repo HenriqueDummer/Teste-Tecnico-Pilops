@@ -1,5 +1,5 @@
 import { useGetTotalBalance } from "../hooks/useGetTotalBalance";
-import { formatToDecimal } from "../utils/formatToDecimal";
+import { formatCurrency } from "../utils/formatCurrency";
 import Container from "./Container";
 import EarnsIcon from "/EarnsIcon.svg";
 
@@ -17,7 +17,7 @@ const TotalBalance = () => {
   const totalBalance = data.totalBalance;
   const isBalancePositive = totalBalance > 0;
 
-  const formattedBalance = formatToDecimal(totalBalance);
+  const formattedBalance = formatCurrency(totalBalance);
 
   return (
     <Container>
