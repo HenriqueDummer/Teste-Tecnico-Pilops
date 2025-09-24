@@ -12,8 +12,8 @@ export const getFlights = async (page: number): Promise<PaginatedFlights> => {
 
     console.log(flights)
     return flights;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     throw new Error("Failed to get flights");
   }
 };

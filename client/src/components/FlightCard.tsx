@@ -23,7 +23,7 @@ const FlightCard = ({
   hideBalance = false,
 }: FlightProps) => {
   const isBalancePositive = balance > 0;
-  const fomattedBalance = formatCurrency(balance);
+  const formattedBalance = formatCurrency(balance);
 
   const formattedDate = formatDate(date);
 
@@ -70,7 +70,7 @@ const FlightCard = ({
             } font-semibold mt-1`}
             >
               {!isBalancePositive && "- "}
-              {fomattedBalance}
+              {formattedBalance}
             </p>
           </li>
         )}

@@ -12,8 +12,8 @@ export const getFlightDetails = async (
     const flight = response.data;
 
     return flight;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     throw new Error("Failed to get flights");
   }
 };

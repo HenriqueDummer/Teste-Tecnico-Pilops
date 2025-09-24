@@ -39,7 +39,7 @@ const FlightDetails = () => {
   return (
     <>
       <div className="flex gap-3 text-2xl">
-        <button onClick={() => navigate(-1)} className="cursor-pointer">
+        <button onClick={() => navigate("/")} className="cursor-pointer">
           <img src={ArrowIcon} alt="Arrow icon" />
         </button>
         <h2 className="font-sora font-bold">Detalhes do voo</h2>

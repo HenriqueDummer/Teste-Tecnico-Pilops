@@ -50,6 +50,24 @@ export const getFlightDetails = (req: Request, res: Response): void => {
     res.json(flight);
   } catch (error) {
     console.log(error);
-    throw new Error("Failed to get flight");
+    throw new Error("Failed to get flight details");
+  }
+};
+
+export const getTotalBalance = (req: Request, res: Response): void => {
+  try {
+    const db = readDbData<DB>();
+    let totalBalance = 0;
+
+    db.flights.map((flight) => {
+      const flightBalance = flight.flightData.balance;
+
+      totalBalance += flightBalance;
+    });
+
+    res.status(200).json({ totalBalance });
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to get total balance");
   }
 };
