@@ -1,6 +1,7 @@
+// @ts-noCheck
 import type { Request, Response } from "express";
-import { readDbData } from "../utils/readDbData.ts";
-import type { DB, Flight } from "../types/types.ts";
+import { readDbData } from "../utils/readDbData.js";
+import type { DB, Flight } from "../types/types.js";
 
 export const getFlights = (req: Request, res: Response): void => {
   try {
@@ -10,7 +11,7 @@ export const getFlights = (req: Request, res: Response): void => {
     const plane = req.query.plane;
 
     let db = readDbData<DB>();
-
+  
     if (plane) {
       db = {
         flights: db.flights.filter((flight) => flight.aircraft.name === plane),

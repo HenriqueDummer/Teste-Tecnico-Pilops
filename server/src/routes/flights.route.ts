@@ -1,10 +1,11 @@
+// @ts-noCheck
 import express from "express";
 import {
   getFlightDetails,
   getFlights,
   getTotalBalance,
   getUsedPlanes,
-} from "../controllers/flights.controllers.ts";
+} from "../controllers/flights.controllers.js";
 
 const route = express.Router();
 

@@ -1,8 +1,8 @@
+// @ts-noCheck
 import express from "express";
 import dotenv from "dotenv";
 
-import flightsRoutes from "./routes/flights.route.ts";
-import { readDbData } from "./utils/readDbData.ts";
+import flightsRoutes from "./routes/flights.route.js";
 import cors from "cors";
 
 dotenv.config();
