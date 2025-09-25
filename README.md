@@ -2,6 +2,8 @@
 
 Este repositório contém a implementação do teste técnico para a **Pilops**.  
 
+Acesse em: https://teste-tecnico-pilops.vercel.app/
+
 ---
 
 ## 📌 Tecnologias utilizadas
