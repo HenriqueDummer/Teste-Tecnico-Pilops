@@ -15,7 +15,9 @@ const FlightDetails = () => {
 
   const { data, isError, isLoading } = useGetFlightDetails(id!);
 
-  if (!data || isError) {
+  if (isLoading) return <h3 className="text-xl text-center">Carregando...</h3>;
+  
+  if (isError || !data) {
     return <h1>Algo deu errado, tente novamente mais tarde</h1>;
   }
 

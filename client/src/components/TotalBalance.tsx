@@ -6,6 +6,13 @@ import EarnsIcon from "/EarnsIcon.svg";
 const TotalBalance = () => {
   const { data, isLoading } = useGetTotalBalance();
 
+  if (isLoading)
+    return (
+      <h4 className="font-semibold text-text-secondary">
+        Calculando saldo acumulado...
+      </h4>
+    );
+
   if (!data) {
     return (
       <Container>
@@ -23,12 +30,6 @@ const TotalBalance = () => {
 
   return (
     <>
-      {isLoading && (
-        <h4 className="font-semibold text-text-secondary">
-          Calculando saldo acumulado...
-        </h4>
-      )}
-
       {data && (
         <div className="flex items-center gap-4">
           <div className="flex flex-col items-end">
