@@ -23,6 +23,7 @@ Acesse em: https://teste-tecnico-pilops.vercel.app/
 - Paginação no backend
 - Scroll infinito com react query
 - Saldo total acumulado
+- Filtragem de voos por aeronaves
 
 ---
 
